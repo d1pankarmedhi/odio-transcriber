@@ -35,7 +35,14 @@ async def transcribe(file: UploadFile = File(...)):
     # delete the saved audio file
     os.remove(file_path)
 
-    return {"status": 200, "Message": file.filename, "Text": result['text'], "model": "_".join(str(whisper.model_id).split('-')) }
+    return {
+        "status": 200, 
+        "file_name": file.filename, 
+        "text": result['text'], 
+        "text_chunks": result['chunks'], 
+        "model": "_".join(str(whisper.model_id).split('-')),
+    }
+
 
 
 

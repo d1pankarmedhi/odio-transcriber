@@ -20,10 +20,16 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Follow the notebook inside **notebook** directory to download and set the models.
-
 4. Start the application
 ```bash
-cd transcribe_service
-python main.py
+python transcribe_service/main.py
+```
+
+5. Make a **POST** request to `transcribe/audio` route. See below example.
+```bash
+curl -X 'POST' \
+  'http://localhost:8000/transcribe/audio' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@Audio_Kevin_Folta.wav;type=audio/wav'
 ```

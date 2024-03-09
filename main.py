@@ -1,22 +1,24 @@
 import os
 
 import uvicorn
-from fastapi import FastAPI, File, UploadFile
+from fastapi import APIRouter, FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
-from whisper import Whisper
+
+from core.transcribe.whisper import Whisper
 
 app = FastAPI()
+router = APIRouter()
 
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
-@app.get("/")
+@router.get("/")
 async def home():
     return {"Message": "Server running at 8000"}
 
 
-@app.post("/transcribe/audio")
+@router.post("/transcribe/audio")
 async def transcribe(file: UploadFile = File(...)):
     file_path = f"{UPLOAD_DIR}/{file.filename}"
     with open(file_path, "wb") as f:
@@ -43,6 +45,8 @@ async def transcribe(file: UploadFile = File(...)):
 
     return JSONResponse(status_code=200, content=response_data)
 
+
+app.include_router(router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)

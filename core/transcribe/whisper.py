@@ -10,7 +10,6 @@ class Whisper:
 
     def __init__(self, model_id: str = "openai/whisper-base") -> None:
         self.model_id = model_id
-
         self.model = AutoModelForSpeechSeq2Seq.from_pretrained(
             model_id,
             torch_dtype=self.torch_dtype,
@@ -18,25 +17,36 @@ class Whisper:
             use_safetensors=True,
         )
         self.model.to(self.device)
-
         self.processor = AutoProcessor.from_pretrained(model_id)
+
+    @property
+    def model_name(self):
+        """
+        Getter method for retrieving the model name.
+        """
+        return self.model_id
 
     def save(self, save_dir: str):
         """
-        Save the model and processor to the specified directory.
+        Saves the model and processor to the specified directory.
 
-        Parameters:
+        Args:
             save_dir (str): The directory where the model and processor will be saved.
-
-        Returns:
-            None
         """
         self.model.save_pretrained(f"{save_dir}/model")
         self.processor.save_pretrained(f"{save_dir}/processor")
 
     def load(self, load_dir: str):
-        self.model.from_pretrained(f"{load_dir}/model")
-        self.processor.from_pretrained(f"{load_dir}/processor")
+        """
+        Load the model and processor from the specified directory.
+
+        Args:
+            load_dir (str): The directory from which to load the model and processor.
+        """
+        self.model = AutoModelForSpeechSeq2Seq.from_pretrained(f"{load_dir}/model")
+        self.processor = AutoProcessor.from_pretrained(f"{load_dir}/processor")
+
+        self.model.to(self.device)
 
     def pipeline(self):
         pipe = pipeline(

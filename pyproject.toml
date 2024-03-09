@@ -1,0 +1,21 @@
+[tool.poetry]
+authors = ["Your Name <you@example.com>"]
+description = "core ml backend for odio"
+name = "odio"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = "3.10.13"
+
+[tool.poetry.group.dev.dependencies]
+fastapi = "^0.110.0"
+uvicorn = "^0.28.0"
+transformers = "^4.38.2"
+accelerate = "^0.27.2"
+torch = "^2.2.1"
+python-multipart = "^0.0.9"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]

@@ -14,7 +14,8 @@ git clone https://github.com/wavnet/odio.git
 python -m venv .venv
 
 # activate venv
-source .venv/bin/activate
+source .venv/bin/activate # linux
+.venv\Scripts\activate # windows
 
 # install dependencies
 pip install -r requirements.txt
@@ -22,7 +23,7 @@ pip install -r requirements.txt
 
 4. Start the application
 ```bash
-python transcribe_service/main.py
+python main.py
 ```
 
 5. Make a **POST** request to `transcribe/audio` route. See below example.

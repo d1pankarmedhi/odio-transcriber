@@ -1035,6 +1035,7 @@ description = "Nvidia JIT LTO Library"
 optional = false
 python-versions = ">=3"
 files = [
+    {file = "nvidia_nvjitlink_cu12-12.4.99-py3-none-manylinux2014_aarch64.whl", hash = "sha256:75d6498c96d9adb9435f2bbdbddb479805ddfb97b5c1b32395c694185c20ca57"},
     {file = "nvidia_nvjitlink_cu12-12.4.99-py3-none-manylinux2014_x86_64.whl", hash = "sha256:c6428836d20fe7e327191c175791d38570e10762edc588fb46749217cd444c74"},
     {file = "nvidia_nvjitlink_cu12-12.4.99-py3-none-win_amd64.whl", hash = "sha256:991905ffa2144cb603d8ca7962d75c35334ae82bf92820b6ba78157277da1ad2"},
 ]
@@ -2566,5 +2567,5 @@ dev = ["ipython", "jiwer", "matplotlib", "openai-whisper", "pandas", "pyarrow", 
 
 [metadata]
 lock-version = "2.0"
-python-versions = "3.10.13"
-content-hash = "2826fca9ad89153a19aa8b6248776cc7d8958cbf6fc3ca4b45ccdde83ed7b066"
+python-versions = "^3.10"
+content-hash = "f5aa07e0bd011d7462a79b89842d6c2e2522776cf548087e15b813f41fe70238"

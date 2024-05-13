@@ -1,12 +1,8 @@
-import io
-import os
-
 import uvicorn
 from fastapi import APIRouter, FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 
-from core.agent.agent import Agent
-from core.transcribe import transcribe_audio
+from core.transcribe.base import Transcriber
 
 app = FastAPI()
 router = APIRouter()
@@ -20,7 +16,8 @@ async def home():
 @router.post("/transcribe/audio")
 async def transcribe(file: UploadFile = File(...)):
     audio_file = await file.read()
-    result = transcribe_audio(audio_file)
+
+    result = Transcriber().run(audio_file)
     response_data = {
         "status": 200,
         "file_name": file.filename,
@@ -29,13 +26,6 @@ async def transcribe(file: UploadFile = File(...)):
     }
 
     return JSONResponse(status_code=200, content=response_data)
-
-
-@router.post("/agent/invoke")
-def invoke_agent(input: str):
-    agent = Agent()
-    result = agent.invoke_agent(input)
-    return JSONResponse(status_code=200, content=result.result)
 
 
 app.include_router(router)
